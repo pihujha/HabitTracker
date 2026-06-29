@@ -1,6 +1,6 @@
 # Habit Tracker
 
-A personal habit tracking dashboard built as a portfolio project. The idea was simple: something that actually works day-to-day, not just a CRUD app dressed up as one. You can track habits as either binary (did it or didn't) or as a progress percentage — because logging 45 minutes at the gym when your goal was an hour still deserves credit.
+A personal habit tracking dashboard built as a portfolio project. You can track habits as either binary (did it or didn't) or as a progress percentage (logic: logging 45 minutes at the gym when your goal was an hour still deserves credit).
 
 Live: https://habittracker-0610.web.app
 
@@ -60,12 +60,4 @@ RLS policies ensure users can only read and write their own rows.
 
 ## How it was built
 
-This was the first in a series of small portfolio projects — the goal was to get comfortable with the full stack (React, Supabase, Firebase) before tackling something more complex. It was built incrementally: auth first, then routing, then CRUD, then logging, then streaks, then charts, then the design pass.
-
-A few things that came up along the way worth noting:
-
-The streak logic was the most interesting part to get right. A streak only counts if the habit was logged today or yesterday — otherwise leaving the app for a week and logging yesterday would still show a streak. The function walks backwards day by day and breaks the moment there's a gap.
-
-The completion rate in the chart originally just counted whether a habit was logged (any log = 100%). That was wrong. For progress habits especially, logging 10% shouldn't count the same as 100%. The fix was summing the actual logged values and dividing by `(habitCount × 100)`.
-
-The real-time update problem: the chart and streak hooks only fetched on mount, so checking off a habit wouldn't update the stats until you refreshed. Solved this with a `refreshKey` counter in the Dashboard that increments on every log toggle, passed as a dependency to the stats hooks so they re-fetch automatically.
+This was the first in a series of small portfolio projects — the goal was to get comfortable with the full stack (React, Supabase, Firebase) before tackling something more complex. It was built incrementally: authentication first, then routing, then CRUD, then logging, then streaks, then charts, and finally the design pass.
