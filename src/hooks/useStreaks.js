@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 
-export function useStreaks(habits) {
+export function useStreaks(habits, refreshKey = 0) {
   const { user } = useAuth()
   const [streaks, setStreaks] = useState({}) // { habitId: number }
 
   useEffect(() => {
     if (!user || habits.length === 0) return
     fetchStreaks()
-  }, [user, habits])
+  }, [user, habits, refreshKey])
 
   async function fetchStreaks() {
     const habitIds = habits.map((h) => h.id)

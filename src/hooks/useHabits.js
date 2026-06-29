@@ -21,10 +21,10 @@ export function useHabits() {
     setLoading(false)
   }
 
-  async function addHabit(name) {
+  async function addHabit(name, description = '', type = 'binary') {
     const { data, error } = await supabase
       .from('habits')
-      .insert({ name, user_id: user.id })
+      .insert({ name, description, type, user_id: user.id })
       .select()
       .single()
     if (!error) setHabits((prev) => [...prev, data])

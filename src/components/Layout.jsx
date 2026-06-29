@@ -1,44 +1,31 @@
 import { Outlet } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
 
 export default function Layout() {
   const { user, signOut } = useAuth()
+  const { theme, toggleTheme } = useTheme()
 
   return (
     <div>
-      <nav style={styles.nav}>
-        <span style={styles.brand}>Habit Tracker</span>
-        <div style={styles.right}>
-          <span style={styles.email}>{user?.email}</span>
-          <button onClick={signOut} style={styles.signOut}>Sign Out</button>
+      <nav className="nav">
+        <a href="#today" className="nav-brand">Habit Tracker</a>
+        <div className="nav-links">
+          <a href="#today" className="nav-link">Today</a>
+          <a href="#insights" className="nav-link">Insights</a>
+          <a href="#habits" className="nav-link">Habits</a>
+        </div>
+        <div className="nav-right">
+          <span className="nav-email">{user?.email}</span>
+          <button onClick={toggleTheme} className="theme-btn">
+            {theme === 'light' ? '🌙' : '☀️'}
+          </button>
+          <button onClick={signOut} className="sign-out-btn">Sign Out</button>
         </div>
       </nav>
-      <main style={styles.main}>
+      <main>
         <Outlet />
       </main>
     </div>
   )
-}
-
-const styles = {
-  nav: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '1rem 2rem',
-    borderBottom: '1px solid #e5e7eb',
-    backgroundColor: '#fff',
-  },
-  brand: { fontWeight: 600, fontSize: '1.1rem', color: '#111' },
-  right: { display: 'flex', alignItems: 'center', gap: '1rem' },
-  email: { fontSize: '0.875rem', color: '#666' },
-  signOut: {
-    padding: '0.4rem 0.9rem',
-    borderRadius: '6px',
-    border: '1px solid #ddd',
-    background: '#fff',
-    cursor: 'pointer',
-    fontSize: '0.875rem',
-  },
-  main: { padding: '2rem' },
 }
